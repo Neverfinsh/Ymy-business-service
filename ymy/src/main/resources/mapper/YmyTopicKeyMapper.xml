@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.script.ymy.mapper.YmyTopicKeyMapper">
+  <resultMap id="BaseResultMap" type="com.script.ymy.dto.YmyTopicKey">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="send_time" jdbcType="VARCHAR" property="sendTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, status, user_id, device_id, type, remark, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_ymy_topic_key
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectOneByUid"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_ymy_topic_key
+    where status=1    order by create_time desc    limit 1;
+  </select>
+  <select id="selectListByUid"  parameterType="com.script.ymy.dto.YmyTopicKey"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_ymy_topic_key
+    where user_id = #{userId,jdbcType=VARCHAR}
+    order by create_time desc ;
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_ymy_topic_key
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.script.ymy.dto.YmyTopicKey">
+    insert into t_ymy_topic_key (id, name, status, 
+      user_id, device_id, type, 
+      remark, create_time,send_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{userId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},#{sendTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.script.ymy.dto.YmyTopicKey">
+    insert into t_ymy_topic_key
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.script.ymy.dto.YmyTopicKey">
+    update t_ymy_topic_key
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.script.ymy.dto.YmyTopicKey">
+    update t_ymy_topic_key
+    set name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

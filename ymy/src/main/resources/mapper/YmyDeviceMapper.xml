@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.script.ymy.mapper.YmyDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.script.ymy.dto.YmyDevice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dvice_name" jdbcType="VARCHAR" property="dviceName" />
+    <result column="device_mac" jdbcType="VARCHAR" property="deviceMac" />
+    <result column="device_brand" jdbcType="VARCHAR" property="deviceBrand" />
+    <result column="device_user_account" jdbcType="VARCHAR" property="deviceUserAccount" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dvice_name, device_mac, device_brand, device_user_account, status, remark, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_ymy_device
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByUserAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_ymy_device
+    where device_user_account = #{deviceUserAccount,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_ymy_device
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.script.ymy.dto.YmyDevice">
+    insert into t_ymy_device (id, dvice_name, device_mac, 
+      device_brand, device_user_account, status, 
+      remark, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{dviceName,jdbcType=VARCHAR}, #{deviceMac,jdbcType=VARCHAR}, 
+      #{deviceBrand,jdbcType=VARCHAR}, #{deviceUserAccount,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.script.ymy.dto.YmyDevice">
+    insert into t_ymy_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dviceName != null">
+        dvice_name,
+      </if>
+      <if test="deviceMac != null">
+        device_mac,
+      </if>
+      <if test="deviceBrand != null">
+        device_brand,
+      </if>
+      <if test="deviceUserAccount != null">
+        device_user_account,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dviceName != null">
+        #{dviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceMac != null">
+        #{deviceMac,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceBrand != null">
+        #{deviceBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUserAccount != null">
+        #{deviceUserAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.script.ymy.dto.YmyDevice">
+    update t_ymy_device
+    <set>
+      <if test="dviceName != null">
+        dvice_name = #{dviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceMac != null">
+        device_mac = #{deviceMac,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceBrand != null">
+        device_brand = #{deviceBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUserAccount != null">
+        device_user_account = #{deviceUserAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.script.ymy.dto.YmyDevice">
+    update t_ymy_device
+    set dvice_name = #{dviceName,jdbcType=VARCHAR},
+      device_mac = #{deviceMac,jdbcType=VARCHAR},
+      device_brand = #{deviceBrand,jdbcType=VARCHAR},
+      device_user_account = #{deviceUserAccount,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

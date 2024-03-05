@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.script.ymy.mapper.YmyTopicDetailMapper">
+  <resultMap id="BaseResultMap" type="com.script.ymy.dto.YmyTopicDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="topic_key_id" jdbcType="INTEGER" property="topicKeyId" />
+    <result column="topic_detail" jdbcType="VARCHAR" property="topicDetail" />
+    <result column="topic_detail_complete" jdbcType="VARCHAR" property="topicDetailComplete" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, device_id, topic_key_id, topic_detail, topic_detail_complete, status, 
+    create_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_ymy_topic_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findTopicDetailList" parameterType="com.script.ymy.dto.YmyTopicDetail" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_ymy_topic_detail
+    where id = #{id,jdbcType=INTEGER}
+    <if test="userId != null">
+     and  user_id = #{userId,jdbcType=VARCHAR},
+    </if>
+    <if test="deviceId != null">
+      and   device_id = #{deviceId,jdbcType=VARCHAR},
+    </if>
+    <if test="topicKeyId != null">
+      and   topic_key_id = #{topicKeyId,jdbcType=INTEGER},
+    </if>
+    <if test="topicDetail != null">
+      and   topic_detail = #{topicDetail,jdbcType=VARCHAR},
+    </if>
+    <if test="topicDetailComplete != null">
+      and   topic_detail_complete = #{topicDetailComplete,jdbcType=VARCHAR},
+    </if>
+    <if test="status != null">
+      and  status = #{status,jdbcType=INTEGER},
+    </if>
+    <if test="createTime != null">
+      and  create_time = #{createTime,jdbcType=VARCHAR},
+    </if>
+    <if test="remark != null">
+      and   remark = #{remark,jdbcType=VARCHAR},
+    </if>
+  </select>
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_ymy_topic_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.script.ymy.dto.YmyTopicDetail">
+    insert into t_ymy_topic_detail (id, user_id, device_id, 
+      topic_key_id, topic_detail, topic_detail_complete, 
+      status, create_time, remark
+      )
+    values
+    (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR},
+      #{topicKeyId,jdbcType=INTEGER}, #{topicDetail,jdbcType=VARCHAR}, #{topicDetailComplete,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertBathTopicDetail" parameterType="list">
+    insert into t_ymy_topic_detail (id, user_id, device_id,
+    topic_key_id, topic_detail, topic_detail_complete,
+    status, create_time, remark
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.userId,jdbcType=VARCHAR}, #{item.deviceId,jdbcType=VARCHAR},
+      #{item.topicKeyId,jdbcType=INTEGER}, #{item.topicDetail,jdbcType=VARCHAR}, #{item.topicDetailComplete,jdbcType=VARCHAR},
+      #{item.status,jdbcType=INTEGER}, #{item.createTime,jdbcType=VARCHAR}, #{item.remark,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+
+  <insert id="insertSelective" parameterType="com.script.ymy.dto.YmyTopicDetail">
+    insert into t_ymy_topic_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="topicKeyId != null">
+        topic_key_id,
+      </if>
+      <if test="topicDetail != null">
+        topic_detail,
+      </if>
+      <if test="topicDetailComplete != null">
+        topic_detail_complete,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="topicKeyId != null">
+        #{topicKeyId,jdbcType=INTEGER},
+      </if>
+      <if test="topicDetail != null">
+        #{topicDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="topicDetailComplete != null">
+        #{topicDetailComplete,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.script.ymy.dto.YmyTopicDetail">
+    update t_ymy_topic_detail
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="topicKeyId != null">
+        topic_key_id = #{topicKeyId,jdbcType=INTEGER},
+      </if>
+      <if test="topicDetail != null">
+        topic_detail = #{topicDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="topicDetailComplete != null">
+        topic_detail_complete = #{topicDetailComplete,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.script.ymy.dto.YmyTopicDetail">
+    update t_ymy_topic_detail
+    set user_id = #{userId,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      topic_key_id = #{topicKeyId,jdbcType=INTEGER},
+      topic_detail = #{topicDetail,jdbcType=VARCHAR},
+      topic_detail_complete = #{topicDetailComplete,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

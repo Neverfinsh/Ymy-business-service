@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.script.ymy.mapper.YmySettingMapper">
+  <resultMap id="BaseResultMap" type="com.script.ymy.dto.YmySetting">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="module" jdbcType="VARCHAR" property="module" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, module, code, name, remark,account_id,device_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_ymy_setting
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findSettingList" parameterType="com.script.ymy.vo.req.YmySettingReq" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_ymy_setting
+    where device_id = #{deviceId,jdbcType=VARCHAR}
+    and   account_id= #{accountId,jdbcType=VARCHAR}
+    and   module = #{module,jdbcType=VARCHAR}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_ymy_setting
+    where id = #{id,jdbcType=INTEGER}
+    <if test="module != null">
+    and    module = #{module,jdbcType=VARCHAR},
+    </if>
+    <if test="code != null">
+     and   code = #{code,jdbcType=VARCHAR},
+    </if>
+    <if test="name != null">
+     and   name = #{name,jdbcType=VARCHAR},
+    </if>
+    <if test="remark != null">
+      and  remark = #{remark,jdbcType=VARCHAR},
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.script.ymy.dto.YmySetting">
+    insert into t_ymy_setting ( module, code, account_id,device_id,
+      name, remark)
+    values ( #{module,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},  #{accountId,jdbcType=VARCHAR},  #{deviceId,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.script.ymy.dto.YmySetting">
+    insert into t_ymy_setting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="module != null">
+        module,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="module != null">
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.script.ymy.dto.YmySetting">
+    update t_ymy_setting
+    <set>
+      <if test="module != null">
+        module = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.script.ymy.dto.YmySetting">
+    update t_ymy_setting
+    set module = #{module,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

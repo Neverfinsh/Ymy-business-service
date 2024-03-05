@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.script.ymy.mapper.ScriptTaskMapper">
+  <resultMap id="BaseResultMap" type="com.script.ymy.dto.ScriptTask">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="article_num" jdbcType="INTEGER" property="articleNum" />
+    <result column="article_them" jdbcType="VARCHAR" property="articleThem" />
+    <result column="article_send_time" jdbcType="TIMESTAMP" property="articleSendTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, device_id, article_num, article_them, article_send_time, status, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_script_task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectTaskList"   resultType="com.script.ymy.dto.ScriptTask">
+         SELECT * FROM  t_script_task
+  </select>
+
+
+  <select id="findOneTask" parameterType="com.script.ymy.vo.req.AllthemReq" resultType="com.script.ymy.dto.ScriptTask">
+        SELECT * FROM
+             t_script_task
+         WHERE
+             device_id=#{deviceId,jdbcType=VARCHAR}
+         AND
+             uid= #{userId,jdbcType=VARCHAR}
+          AND
+             status= 0
+          ORDER BY     article_send_time    ASC           Limit 1
+
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_script_task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.script.ymy.dto.ScriptTask">
+    insert into t_script_task (id, uid, device_id, 
+      article_num, article_them, article_send_time, 
+      status, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, 
+      #{articleNum,jdbcType=INTEGER}, #{articleThem,jdbcType=VARCHAR}, #{articleSendTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.script.ymy.dto.ScriptTask">
+    insert into t_script_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="articleNum != null">
+        article_num,
+      </if>
+      <if test="articleThem != null">
+        article_them,
+      </if>
+      <if test="articleSendTime != null">
+        article_send_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleNum != null">
+        #{articleNum,jdbcType=INTEGER},
+      </if>
+      <if test="articleThem != null">
+        #{articleThem,jdbcType=VARCHAR},
+      </if>
+      <if test="articleSendTime != null">
+        #{articleSendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.script.ymy.dto.ScriptTask">
+    update t_script_task
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleNum != null">
+        article_num = #{articleNum,jdbcType=INTEGER},
+      </if>
+      <if test="articleThem != null">
+        article_them = #{articleThem,jdbcType=VARCHAR},
+      </if>
+      <if test="articleSendTime != null">
+        article_send_time = #{articleSendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.script.ymy.dto.ScriptTask">
+    update t_script_task
+    set uid = #{uid,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      article_num = #{articleNum,jdbcType=INTEGER},
+      article_them = #{articleThem,jdbcType=VARCHAR},
+      article_send_time = #{articleSendTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insertBatch" parameterType="list">
+    insert into t_script_task (id, uid, device_id,
+    article_num, article_them, article_send_time,
+    status, create_time, update_time
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.uid,jdbcType=VARCHAR}, #{item.deviceId,jdbcType=VARCHAR},
+      #{item.articleNum,jdbcType=INTEGER}, #{item.articleThem,jdbcType=VARCHAR}, #{item.articleSendTime,jdbcType=TIMESTAMP},
+      #{item.status,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+
+</mapper>

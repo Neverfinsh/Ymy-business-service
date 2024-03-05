@@ -1,0 +1,49 @@
+server:
+  port: 8099
+
+info:
+  app:
+    name: @project.artifactId@
+    description: @project.description@
+    version: @project.version@
+
+spring:
+  application:
+    name: ${info.app.name}-test
+  datasource:
+    url: jdbc:mysql://101.201.33.155:3306/ymy?useUnicode=true&characterEncoding=utf8&useSSL=false&failOverReadOnly=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&useTimezone=true
+  #  url: jdbc:mysql://localhost:3306/ymy?useUnicode=true&characterEncoding=utf8&useSSL=false&failOverReadOnly=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&useTimezone=true&
+  #  password: 123456
+    username: root
+    password: Liuwu@654007
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: WEB-INF/**
+    freemarker:
+      cache: false
+
+  servlet:
+    multipart:
+      max-request-size: 500MB
+      max-file-size: 500MB
+
+  flyway:
+    baseline-on-migrate: false
+    validate-on-migrate: false
+    clean-disabled: true
+  main:
+    allow-circular-references: true
+
+mybatis-plus:
+      configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+file:
+  # uploadUrl: C:\Users\liuwu\Desktop\test\
+    uploadUrl: /ymystatic/img/
+    prodIp: 101.201.33.155
+

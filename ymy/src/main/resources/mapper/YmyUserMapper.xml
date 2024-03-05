@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.script.ymy.mapper.YmyUserMapper">
+  <resultMap id="BaseResultMap" type="com.script.ymy.dto.YmyUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_account_password" jdbcType="VARCHAR" property="userAccountPassword" />
+    <result column="user_user_name" jdbcType="VARCHAR" property="userUserName" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_account, user_account_password, user_user_name, status, remark, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_ymy_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByLoignReq" parameterType="com.script.ymy.vo.req.WebLoginReq" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_ymy_user
+    where
+       user_account = #{userAccount,jdbcType=VARCHAR}
+    and
+       user_account_password = #{userAccountPassword,jdbcType=VARCHAR}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_ymy_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.script.ymy.dto.YmyUser">
+    insert into t_ymy_user (id, user_account, user_account_password, 
+      user_user_name, status, remark, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, #{userAccountPassword,jdbcType=VARCHAR}, 
+      #{userUserName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.script.ymy.dto.YmyUser">
+    insert into t_ymy_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="userAccountPassword != null">
+        user_account_password,
+      </if>
+      <if test="userUserName != null">
+        user_user_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccountPassword != null">
+        #{userAccountPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userUserName != null">
+        #{userUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.script.ymy.dto.YmyUser">
+    update t_ymy_user
+    <set>
+      <if test="userAccount != null">
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccountPassword != null">
+        user_account_password = #{userAccountPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userUserName != null">
+        user_user_name = #{userUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.script.ymy.dto.YmyUser">
+    update t_ymy_user
+    set user_account = #{userAccount,jdbcType=VARCHAR},
+      user_account_password = #{userAccountPassword,jdbcType=VARCHAR},
+      user_user_name = #{userUserName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

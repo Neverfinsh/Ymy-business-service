@@ -1,0 +1,12 @@
+version: '2.4'
+services:
+  app:
+    image: "192.168.145.78/eccom/business-china-unicom:22.12.08.1"
+    restart: always
+    network_mode: "host"
+    environment:
+      - profile=demo
+      - id=192.168.145.78
+      - nacos-server=192.168.145.85:8848
+      - nacos-username=eccom
+      - nacos-password=Eccom@123
